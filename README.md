@@ -3,4 +3,4 @@
 
 © Blizzard Entertainment,Inc.
 
-An API for the heroes of Overwatch (team-based multiplayer online first-person shooter video game developed and published by Blizzard Entertainment), utilizing the MEAN stack (Mongodb, ExpressJS, Angular, NodeJS)
+An API for the heroes of Overwatch (team-based multiplayer online first-person shooter video game developed and published by Blizzard Entertainment), utilizing the MEAN stack (Mongodb, ExpressJS, React, NodeJS)
