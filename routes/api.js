@@ -6,7 +6,9 @@ const Hero = require('../models/hero.js');
 
 /* GET = get from database*/
 router.get('/heroes', function (req, res, next) {
-    res.send({ type: 'GET' });
+    Hero.find(req.query.name).then(function(hero) {
+        res.send(hero);
+    });
 });
 
 /* POST = add to database */
@@ -18,12 +20,16 @@ router.post('/heroes', function (req, res, next) {
 
 /* PUT = update object in database*/
 router.put('/heroes/:id', function (req, res, next) {
-    res.send({ type: 'PUT' });
+    Hero.findByIdAndUpdate({ _id: req.params.id }, req.body).then(function () {
+        Hero.findOne({ _id: req.params.id }).then(function (hero) {
+            res.send(hero);
+        });
+    });
 });
 
 /* DELETE = remove object from database */
 router.delete('/heroes/:id', function (req, res, next) {
-    Hero.findByIdAndRemove({_id: req.params.id}).then(function(hero) {
+    Hero.findByIdAndRemove({ _id: req.params.id }).then(function (hero) {
         res.send(hero);
     });
 });

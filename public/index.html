@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OverwatchAPI</title>
+    <link rel="stylesheet" href="/styles.css" type="text/css">
+</head>
+
+<body>
+    <h1 class="title">Overwatch REST API</h1>
+    <div id="homepage">
+        <h1>Hero</h1>
+        <div id="heroes"></div>
+    </div>
+
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+
+    <script type="text/babel">
+    var Heroes = React.createClass({
+        getInitialState: function(){
+            return({
+                heroes: []
+            });
+        },
+        render:function() {
+            var heroes = this.state.heroes;
+            heroes = heroes.map(function(hero, index) {
+                return(
+                    <li key={index}>
+                        <span className={hero.obj.viable}></span>
+                        <span className="name"{hero.obj.name}></span>
+                        <span className="class"{hero.obj.class}></span>
+                        <span className="health"{hero.obj.health}></span>
+                        <span className="shield"{hero.obj.shield}></span>
+                    </li>
+                );
+            });
+            return(
+                <div id="hero-container">
+                    <form id="search" onSubmit={this.handleSubmit}>
+                        <label>Enter Hero Name:</label>
+                        <input type="text" ref="name" placeholder="Zenyatta" required />
+                        <input type="submit" value="Find Hero" />
+                    </form>
+                    <ul>{heroes}</ul>
+                </div>
+            );
+        },
+        handleSubmit: function(e){
+            e.preventDefault();
+            var name = this.refs.name.value;
+
+            fetch('/api/heroes?name=' + name).then(function(data) {
+                return data.json();
+            }).then(json => {
+                this.setState({
+                    heroes: json
+                });
+            });
+        }
+    });
+
+    ReactDOM.render(<Heroes />, document.getElementById('heroes'));
+    </script>
+</body>
+
+</html>

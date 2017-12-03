@@ -17,11 +17,10 @@ const HeroSchema = new Schema({
     shield: {
         type: Number
     },
-    available: {
+    viable: {
         type: Boolean,
         default: false
     }
-    /* GEO LOCATION */
 });
 
 const Hero = mongoose.model('hero', HeroSchema);
